@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_NAME: "ConfigMap Secret App"
+  APP_MESSAGE: "This is coming from ConfigMap!"

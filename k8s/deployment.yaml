@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-secret-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configmap-secret-app
+  template:
+    metadata:
+      labels:
+        app: configmap-secret-app
+    spec:
+      containers:
+      - name: app-container
+        image: akash5022gupta/configmap-secret-app:v1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_NAME
+        - name: APP_MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_MESSAGE
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: DB_PASSWORD
